@@ -19,7 +19,8 @@ Provides a Python API to query the `Archive of Our Own`_. This has a limited set
         language_id="en",
         complete="T",
     )
-    first_hit = next(works)
+    work = next(works)
+    print(f"{work.title} by {work.author or 'Anonymous'}")
 
 
 .. _Archive of our Own: https://archiveofourown.org/
