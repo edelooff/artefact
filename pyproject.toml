@@ -1,0 +1,43 @@
+[project]
+name = "artefact"
+dynamic = ["version"]
+
+dependencies = [
+    "cssselect",
+    "lxml",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev =  [
+    "flake8-black",
+    "flake8-isort",
+    "flake8",
+    "ipython",
+    "mypy",
+    "typer[all]",
+    "types-PyYAML",
+    "types-requests",
+]
+
+[project.scripts]
+abacus = "bloomon.abacus.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "artefact.__version__"}
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+atomic = true
+profile = "black"
+
+[tool.mypy]
+ignore_missing_imports = true
+show_error_codes = true
+namespace_packages = true

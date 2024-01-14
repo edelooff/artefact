@@ -1,0 +1,5 @@
+*.egg-info/
+.DS_Store
+.coverage
+.csv
+env/
