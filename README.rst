@@ -23,4 +23,4 @@ Provides a Python API to query the `Archive of Our Own`_. This has a limited set
     print(f"{work.title} by {work.author or 'Anonymous'}")
 
 
-.. _Archive of our Own: https://archiveofourown.org/
+.. _Archive of Our Own: https://archiveofourown.org/

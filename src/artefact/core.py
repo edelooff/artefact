@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Iterator
 
 from .http import ArchiveApi, Html
-from .types import Blurb, Tag
+from .types import Blurb, Tag, TagType
 from .utils import tag_escape
 
 log = logging.getLogger(__name__)
@@ -62,15 +62,17 @@ class TagResolver:
             raw_tags = json.load(open(self._cache_file))
             self._cache = {key: Tag(**value) for key, value in raw_tags.items()}
 
-    def __call__(self, name: str) -> Tag:
-        tag = self.get(name)
+    def __call__(self, name: str, tag_type: TagType) -> Tag:
+        tag = self.get(name, tag_type)
         if tag.common is None and self.auto_resolve:
             return self.resolve(name)
         return tag
 
-    def get(self, name: str) -> Tag:
+    def get(self, name: str, tag_type: TagType) -> Tag:
         """Return Tag instance for given tag name, added to cache if not known."""
-        return self._cache.setdefault(name, Tag(name=name))
+        tag = self._cache.setdefault(name, Tag(name=name))
+        tag.type = tag_type
+        return tag
 
     def resolve(self, name: str) -> Tag:
         """Fetches a tag (and its synonyms for common ones) from AO3."""
